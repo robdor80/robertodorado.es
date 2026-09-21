@@ -1,15 +1,58 @@
 ---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { projectSections } from '../lib/projectLabels';
+
+const featuredProjects = await getCollection('projects', ({ data }) => data.featured);
 ---
 
 <BaseLayout
   title="Roberto Dorado | Portfolio personal"
   description="Portfolio personal de Roberto Dorado: aplicaciones, programas, webs y otros proyectos."
 >
-  <section class="intro" aria-labelledby="page-title">
-    <p class="eyebrow">Portfolio personal</p>
-    <h1 id="page-title">Roberto Dorado</h1>
-    <p class="summary">Aplicaciones · Programas · Webs · Proyectos</p>
+  <section class="home-hero" aria-labelledby="page-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Portfolio personal</p>
+      <h1 id="page-title">Roberto Dorado</h1>
+      <p class="hero-summary">Aplicaciones, programas y proyectos web.</p>
+      <p class="hero-description">
+        Un espacio para reunir proyectos públicos y acceder a su información.
+      </p>
+      <a class="button button-primary" href="/proyectos/">Ver proyectos</a>
+    </div>
+
+    <div class="portfolio-areas" aria-labelledby="areas-title">
+      <h2 id="areas-title">Contenido del portfolio</h2>
+      <ul>
+        {projectSections.map(({ title }) => <li>{title}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {featuredProjects.length > 0 && (
+    <section class="home-section featured-projects" aria-labelledby="featured-title">
+      <header class="section-heading">
+        <p class="eyebrow">Selección</p>
+        <h2 id="featured-title">Proyectos destacados</h2>
+      </header>
+
+      <ul class="project-grid home-project-grid">
+        {featuredProjects.map((project) => (
+          <li>
+            <ProjectCard project={project} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="catalog-cta" aria-labelledby="catalog-title">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h2 id="catalog-title">Todos los proyectos</h2>
+      <p>Consulta el catálogo completo organizado por tipo de proyecto.</p>
+    </div>
+    <a class="button button-secondary" href="/proyectos/">Ver todos los proyectos</a>
   </section>
 </BaseLayout>
-
