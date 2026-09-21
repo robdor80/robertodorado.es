@@ -22,12 +22,12 @@ const featuredProjects = await getCollection('projects', ({ data }) => data.feat
       <a class="button button-primary" href="/proyectos/">Ver proyectos</a>
     </div>
 
-    <div class="portfolio-areas" aria-labelledby="areas-title">
+    <section class="portfolio-areas" aria-labelledby="areas-title">
       <h2 id="areas-title">Contenido del portfolio</h2>
       <ul>
         {projectSections.map(({ title }) => <li>{title}</li>)}
       </ul>
-    </div>
+    </section>
   </section>
 
   {featuredProjects.length > 0 && (

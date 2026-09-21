@@ -8,6 +8,7 @@
   --accent-color: #1d4ed8;
   --accent-hover-color: #1e40af;
   --border-color: #d8e0e8;
+  --focus-color: #a84400;
   --muted-color: #506174;
   --surface-color: #ffffff;
   --subtle-surface-color: #eef3f8;
@@ -36,8 +37,26 @@ a {
 }
 
 a:focus-visible {
-  outline: 0.1875rem solid currentColor;
-  outline-offset: 0.1875rem;
+  outline: 0.1875rem solid #ffffff;
+  outline-offset: 0.125rem;
+  box-shadow: 0 0 0 0.375rem var(--focus-color);
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.375rem;
+  color: #ffffff;
+  background: #17202a;
+  font-weight: 700;
+  transform: translateY(calc(-100% - 1rem));
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .container {
@@ -62,6 +81,7 @@ a:focus-visible {
 
 .site-header ul {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.25rem;
   margin: 0;
   padding: 0;
@@ -111,6 +131,7 @@ h2 {
 }
 
 .hero-copy {
+  min-width: 0;
   max-width: 46rem;
 }
 
@@ -219,6 +240,10 @@ h2 {
   background: var(--subtle-surface-color);
 }
 
+.catalog-cta > * {
+  min-width: 0;
+}
+
 .catalog-cta p:last-child {
   max-width: 38rem;
   margin-block: 0.75rem 0;
@@ -258,7 +283,12 @@ h2 {
   list-style: none;
 }
 
+.project-grid > li {
+  min-width: 0;
+}
+
 .project-card {
+  min-width: 0;
   height: 100%;
   padding: 1.25rem;
   border: 0.0625rem solid var(--border-color);
@@ -283,6 +313,7 @@ h2 {
 
 .project-card > p {
   color: var(--muted-color);
+  overflow-wrap: break-word;
 }
 
 .project-meta {
@@ -323,10 +354,12 @@ h2 {
 }
 
 .technology-list li {
+  max-width: 100%;
   padding: 0.25rem 0.625rem;
   border: 0.0625rem solid var(--border-color);
   border-radius: 999rem;
   font-size: 0.875rem;
+  overflow-wrap: anywhere;
 }
 
 .project-detail {
@@ -376,6 +409,23 @@ h2 {
   border-radius: 0.375rem;
   font-weight: 600;
   text-underline-offset: 0.2rem;
+}
+
+.not-found {
+  max-width: 42rem;
+  padding-block: clamp(4rem, 12vw, 8rem);
+}
+
+.not-found > p:not(.eyebrow) {
+  margin-block: 1.25rem 2rem;
+  color: var(--muted-color);
+  font-size: 1.125rem;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .site-footer {

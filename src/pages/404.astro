@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada | Roberto Dorado"
+  description="La página solicitada no se ha encontrado."
+>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <p class="eyebrow">Error 404</p>
+    <h1 id="not-found-title">Página no encontrada</h1>
+    <p>La dirección solicitada no existe o ya no está disponible.</p>
+    <nav class="not-found-actions" aria-label="Opciones para continuar">
+      <a class="button button-primary" href="/">Volver al inicio</a>
+      <a class="button button-secondary" href="/proyectos/">Ver proyectos</a>
+    </nav>
+  </section>
+</BaseLayout>
+
