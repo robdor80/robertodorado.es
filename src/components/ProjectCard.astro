@@ -11,7 +11,7 @@ const { title, summary, type, status, technologies } = project.data;
 ---
 
 <article class="project-card">
-  <h2><a href={`/proyectos/${project.id}/`}>{title}</a></h2>
+  <h3><a href={`/proyectos/${project.id}/`}>{title}</a></h3>
   <p>{summary}</p>
 
   <dl class="project-meta">
@@ -34,4 +34,3 @@ const { title, summary, type, status, technologies } = project.data;
     </div>
   )}
 </article>
-
