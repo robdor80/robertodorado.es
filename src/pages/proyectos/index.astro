@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from '../../components/ProjectCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = await getCollection('projects');
+---
+
+<BaseLayout
+  title="Proyectos | Roberto Dorado"
+  description="Aplicaciones, programas, webs y otros proyectos públicos de Roberto Dorado."
+>
+  <header class="page-header">
+    <h1>Proyectos</h1>
+    <p>Aplicaciones, programas, webs y otros proyectos públicos.</p>
+  </header>
+
+  <ul class="project-grid">
+    {projects.map((project) => (
+      <li>
+        <ProjectCard project={project} />
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+

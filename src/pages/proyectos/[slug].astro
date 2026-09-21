@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projectStatusLabels, projectTypeLabels } from '../../lib/projectLabels';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const {
+  title,
+  summary,
+  type,
+  status,
+  technologies,
+  image,
+  repositoryUrl,
+  websiteUrl,
+  playStoreUrl,
+  downloadUrl,
+} = project.data;
+---
+
+<BaseLayout title={`${title} | Roberto Dorado`} description={summary}>
+  <article class="project-detail">
+    <a class="back-link" href="/proyectos/">← Todos los proyectos</a>
+
+    <header class="page-header">
+      <h1>{title}</h1>
+      <p>{summary}</p>
+    </header>
+
+    {image && <Image class="project-image" src={image.src} alt={image.alt} />}
+
+    <dl class="project-meta">
+      <div>
+        <dt>Tipo</dt>
+        <dd>{projectTypeLabels[type]}</dd>
+      </div>
+      <div>
+        <dt>Estado</dt>
+        <dd>{projectStatusLabels[status]}</dd>
+      </div>
+    </dl>
+
+    {technologies.length > 0 && (
+      <div class="technology-group">
+        <p class="meta-label">Tecnologías</p>
+        <ul class="technology-list" aria-label={`Tecnologías de ${title}`}>
+          {technologies.map((technology) => <li>{technology}</li>)}
+        </ul>
+      </div>
+    )}
+
+    <div class="project-content">
+      <Content />
+    </div>
+
+    {(websiteUrl || playStoreUrl || downloadUrl || repositoryUrl) && (
+      <nav class="project-links" aria-label={`Enlaces externos de ${title}`}>
+        {websiteUrl && <a href={websiteUrl} target="_blank" rel="noopener noreferrer">Visitar web</a>}
+        {playStoreUrl && <a href={playStoreUrl} target="_blank" rel="noopener noreferrer">Google Play</a>}
+        {downloadUrl && <a href={downloadUrl} target="_blank" rel="noopener noreferrer">Descargar</a>}
+        {repositoryUrl && <a href={repositoryUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}
+      </nav>
+    )}
+  </article>
+</BaseLayout>
+

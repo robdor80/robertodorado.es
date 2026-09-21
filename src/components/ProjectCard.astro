@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { projectStatusLabels, projectTypeLabels } from '../lib/projectLabels';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, type, status, technologies } = project.data;
+---
+
+<article class="project-card">
+  <h2><a href={`/proyectos/${project.id}/`}>{title}</a></h2>
+  <p>{summary}</p>
+
+  <dl class="project-meta">
+    <div>
+      <dt>Tipo</dt>
+      <dd>{projectTypeLabels[type]}</dd>
+    </div>
+    <div>
+      <dt>Estado</dt>
+      <dd>{projectStatusLabels[status]}</dd>
+    </div>
+  </dl>
+
+  {technologies.length > 0 && (
+    <div class="technology-group">
+      <p class="meta-label">Tecnologías</p>
+      <ul class="technology-list" aria-label={`Tecnologías de ${title}`}>
+        {technologies.map((technology) => <li>{technology}</li>)}
+      </ul>
+    </div>
+  )}
+</article>
+

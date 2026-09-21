@@ -1,11 +1,26 @@
 ---
-const isHome = Astro.url.pathname === '/';
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Inicio', isCurrent: currentPath === '/' },
+  {
+    href: '/proyectos/',
+    label: 'Proyectos',
+    isCurrent: currentPath.startsWith('/proyectos'),
+  },
+];
 ---
 
 <header class="site-header">
   <div class="container">
     <nav aria-label="Navegación principal">
-      <a href="/" aria-current={isHome ? 'page' : undefined}>Inicio</a>
+      <ul>
+        {links.map(({ href, label, isCurrent }) => (
+          <li>
+            <a href={href} aria-current={isCurrent ? 'page' : undefined}>{label}</a>
+          </li>
+        ))}
+      </ul>
     </nav>
   </div>
 </header>
