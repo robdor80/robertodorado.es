@@ -1,0 +1,21 @@
+# Build output
+dist/
+
+# Generated Astro files
+.astro/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Operating system and editor files
+.DS_Store
+.idea/
+

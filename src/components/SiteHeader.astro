@@ -1,0 +1,11 @@
+---
+const isHome = Astro.url.pathname === '/';
+---
+
+<header class="site-header">
+  <div class="container">
+    <nav aria-label="Navegación principal">
+      <a href="/" aria-current={isHome ? 'page' : undefined}>Inicio</a>
+    </nav>
+  </div>
+</header>
