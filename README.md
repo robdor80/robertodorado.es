@@ -60,6 +60,10 @@ src/
 
 Astro genera el sitio de producción en `dist/`. Esta carpeta no se versiona.
 
+## Dominio
+
+El dominio canónico configurado para el build es `https://robertodorado.es`. El proyecto todavía no incluye configuración de hosting ni despliegue.
+
 ## Proyectos públicos
 
 Cada archivo Markdown de `src/content/projects/` representa un proyecto. El nombre del archivo se utiliza como identificador y como segmento de su URL: `mi-proyecto.md` genera `/proyectos/mi-proyecto/`.
