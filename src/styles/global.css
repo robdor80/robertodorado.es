@@ -748,6 +748,12 @@ h2 {
     font-size: clamp(2.55rem, 3.525vw, 3.825rem);
     line-height: 1.06;
     letter-spacing: -0.035em;
+    color: #d7b36b;
+    background: linear-gradient(180deg, #f0d99b 0%, #d7b36b 52%, #b98a35 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0.08rem 0.18rem rgb(0 0 0 / 18%);
   }
 
   .dashboard-header-copy {
@@ -869,7 +875,9 @@ h2 {
     color: #17202a;
     background:
       linear-gradient(145deg, rgb(255 255 255 / 98%), rgb(249 250 251 / 98%));
-    box-shadow: 0 0.35rem 1.1rem rgb(23 32 42 / 4%);
+    box-shadow:
+      0 0.55rem 1.35rem rgb(23 32 42 / 10%),
+      0 0.08rem 0.22rem rgb(23 32 42 / 6%);
     text-decoration: none;
     overflow: hidden;
     transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
@@ -888,8 +896,10 @@ h2 {
 
   .dashboard-card:hover {
     transform: translateY(-0.18rem);
-    border-color: #c9b27f;
-    box-shadow: 0 0.8rem 1.8rem rgb(23 32 42 / 9%);
+    border-color: #c9a85f;
+    box-shadow:
+      0 0.85rem 1.9rem rgb(23 32 42 / 13%),
+      0 0 0 1px rgb(201 168 95 / 18%);
   }
 
   .dashboard-card:focus-visible {
@@ -906,8 +916,7 @@ h2 {
     gap: 0.7rem;
   }
 
-  .dashboard-type-badge,
-  .dashboard-status {
+  .dashboard-type-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.38rem;
@@ -938,28 +947,6 @@ h2 {
   .dashboard-type-badge.type-windows {
     color: #6b4b00;
     background: #fff5d8;
-  }
-
-  .dashboard-status {
-    color: #778493;
-    letter-spacing: 0;
-    text-transform: none;
-  }
-
-  .dashboard-status > span {
-    width: 0.42rem;
-    height: 0.42rem;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    background: #9aa5b1;
-  }
-
-  .dashboard-status.status-available > span {
-    background: #22a06b;
-  }
-
-  .dashboard-status.status-development > span {
-    background: #d89a18;
   }
 
   .dashboard-card-body {

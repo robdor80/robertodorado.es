@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { projectStatusLabels, projectTypeLabels } from '../lib/projectLabels';
+import { projectTypeLabels } from '../lib/projectLabels';
 
 const projects = (await getCollection('projects')).sort((a, b) => {
   if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
@@ -29,25 +29,25 @@ const counts = {
 
 const filterCopy = {
   all: {
-    title: 'Roberto Dorado — Portfolio',
+    title: 'Roberto Dorado · Portfolio',
     kicker: 'Portfolio personal',
     description: 'Aplicaciones, webs y programas reunidos en un único espacio.',
     gridTitle: 'Todos los proyectos',
   },
   android: {
-    title: 'Roberto Dorado — Apps',
+    title: 'Roberto Dorado · Portfolio',
     kicker: 'Aplicaciones',
     description: 'Aplicaciones Android desarrolladas dentro del ecosistema RobDev.',
     gridTitle: 'Apps',
   },
   web: {
-    title: 'Roberto Dorado — Webs',
+    title: 'Roberto Dorado · Portfolio',
     kicker: 'Proyectos web',
     description: 'Webs, herramientas online y espacios personales publicados.',
     gridTitle: 'Webs',
   },
   windows: {
-    title: 'Roberto Dorado — Programas',
+    title: 'Roberto Dorado · Portfolio',
     kicker: 'Programas Windows',
     description: 'Aplicaciones y utilidades de escritorio para Windows.',
     gridTitle: 'Programas',
@@ -146,7 +146,7 @@ const filterCopy = {
 
           <div class="dashboard-grid" data-project-grid>
             {projects.map((project) => {
-              const { title, summary, type, status, technologies } = project.data;
+              const { title, summary, type, technologies } = project.data;
               const iconUrl = projectIcons[project.id];
               return (
                 <a
@@ -159,10 +159,6 @@ const filterCopy = {
                   <div class="dashboard-card-top">
                     <span class:list={['dashboard-type-badge', `type-${type}`]}>
                       {projectTypeLabels[type]}
-                    </span>
-                    <span class:list={['dashboard-status', `status-${status}`]}>
-                      <span aria-hidden="true"></span>
-                      {projectStatusLabels[status]}
                     </span>
                   </div>
 
@@ -354,7 +350,7 @@ const filterCopy = {
 
         if (projectsView) projectsView.hidden = true;
         if (settingsPanel) settingsPanel.hidden = false;
-        if (title) title.textContent = 'Roberto Dorado — Ajustes';
+        if (title) title.textContent = 'Roberto Dorado · Portfolio';
         if (kicker) kicker.textContent = 'Configuración';
         if (description) description.textContent = 'Preferencias e información de la aplicación web.';
       });
