@@ -520,7 +520,7 @@ h2 {
     display: flex;
     min-width: 0;
     flex-direction: column;
-    padding: 3.5rem 1rem 1rem;
+    padding: 1.5rem 1rem 1rem;
     color: #f8fafc;
     background-image:
       radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
@@ -590,7 +590,7 @@ h2 {
   .dashboard-nav {
     display: grid;
     gap: 0.35rem;
-    margin-top: 1rem;
+    margin-top: 5rem;
   }
 
   .dashboard-nav-label {
@@ -735,9 +735,9 @@ h2 {
 
   .dashboard-kicker,
   .dashboard-section-label {
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.52rem;
     color: #c9a85f;
-    font-size: 0.7rem;
+    font-size: 1.05rem;
     font-weight: 800;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -745,16 +745,16 @@ h2 {
 
   .dashboard-header h1 {
     margin: 0;
-    font-size: clamp(1.7rem, 2.35vw, 2.55rem);
-    line-height: 1.08;
+    font-size: clamp(2.55rem, 3.525vw, 3.825rem);
+    line-height: 1.06;
     letter-spacing: -0.035em;
   }
 
   .dashboard-header-copy {
-    max-width: 46rem;
-    margin: 0.55rem 0 0;
+    max-width: 58rem;
+    margin: 0.82rem 0 0;
     color: #aab5c2;
-    font-size: 0.94rem;
+    font-size: 1.41rem;
   }
 
   .dashboard-header-meta {
@@ -1115,7 +1115,11 @@ h2 {
 
   .dashboard-sidebar {
     padding-inline: 0.75rem;
-    padding-top: 3rem;
+    padding-top: 1.5rem;
+  }
+
+  .dashboard-nav {
+    margin-top: 4rem;
   }
 
   .dashboard-header {
@@ -1156,5 +1160,13 @@ h2 {
 
   .dashboard-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+@media (min-width: 56.25rem) and (orientation: landscape) {
+  .dashboard-section-label {
+    margin-bottom: 0.35rem;
+    font-size: 0.7rem;
   }
 }
