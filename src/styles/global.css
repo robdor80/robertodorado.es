@@ -13,6 +13,7 @@
   --surface-color: #ffffff;
   --subtle-surface-color: #eef3f8;
   --content-width: 70rem;
+  --portfolio-gold: #d6ad5c;
 }
 
 * {
@@ -912,8 +913,15 @@ h2 {
   .dashboard-card-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 0.7rem;
+  }
+
+  .dashboard-card-top {
+    justify-content: flex-start;
+  }
+
+  .dashboard-card-footer {
+    justify-content: space-between;
   }
 
   .dashboard-type-badge {
