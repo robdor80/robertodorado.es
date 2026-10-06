@@ -509,7 +509,7 @@ h2 {
 
   .dashboard-shell {
     display: grid;
-    grid-template-columns: 15.5rem minmax(0, 1fr);
+    grid-template-columns: 16.275rem minmax(0, 1fr);
     min-height: 100dvh;
     background: #f4f6f8;
   }
@@ -671,6 +671,7 @@ h2 {
   }
 
   .dashboard-workspace {
+    position: relative;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
     min-width: 0;
@@ -679,10 +680,10 @@ h2 {
 
   .dashboard-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 2rem;
-    min-height: 8.25rem;
+    min-height: 12.375rem;
     padding: 1.65rem clamp(1.7rem, 3vw, 3.2rem);
     border-block-end: 1px solid #dfe4ea;
     background: rgb(255 255 255 / 95%);
@@ -750,6 +751,30 @@ h2 {
     min-width: 0;
     overflow: auto;
     padding: clamp(1.5rem, 2.7vw, 3rem);
+    padding-bottom: 6rem;
+  }
+
+  .dashboard-footer {
+    position: absolute;
+    z-index: 3;
+    inset-inline: 0;
+    bottom: 0;
+    min-height: 4.25rem;
+    padding: 0 0 0.6rem;
+    background: linear-gradient(180deg, rgb(244 246 248 / 0%), #f4f6f8 35%);
+    pointer-events: none;
+  }
+
+  .dashboard-footer-line {
+    margin-inline: 50px;
+    border-block-start: 1px solid #d5dbe2;
+  }
+
+  .dashboard-footer p {
+    margin: 0.75rem 0 0;
+    color: #7b8794;
+    font-size: 0.74rem;
+    text-align: center;
   }
 
   .dashboard-projects-view,
@@ -1043,7 +1068,7 @@ h2 {
 
 @media (min-width: 56.25rem) and (max-width: 68.75rem) and (orientation: landscape) {
   .dashboard-shell {
-    grid-template-columns: 13.5rem minmax(0, 1fr);
+    grid-template-columns: 14.175rem minmax(0, 1fr);
   }
 
   .dashboard-sidebar {
@@ -1051,7 +1076,7 @@ h2 {
   }
 
   .dashboard-header {
-    min-height: 7.5rem;
+    min-height: 11.25rem;
     padding-inline: 1.5rem;
   }
 
