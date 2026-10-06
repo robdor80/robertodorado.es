@@ -164,6 +164,9 @@ const filterCopy = {
                       <h3>{title}</h3>
                     </div>
                     <p>{summary}</p>
+                    {project.id === 'viajes' && (
+                      <p class="dashboard-private-note">Web personal · acceso restringido</p>
+                    )}
                   </div>
 
                   <div class="dashboard-card-footer">
