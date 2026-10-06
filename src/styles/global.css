@@ -520,7 +520,7 @@ h2 {
     display: flex;
     min-width: 0;
     flex-direction: column;
-    padding: 1.5rem 1rem 1rem;
+    padding: 3.5rem 1rem 1rem;
     color: #f8fafc;
     background-image:
       radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
@@ -699,6 +699,7 @@ h2 {
   }
 
   .dashboard-header {
+    position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -723,7 +724,13 @@ h2 {
   }
 
   .dashboard-header > div:first-child {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    width: min(72%, 52rem);
     min-width: 0;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
 
   .dashboard-kicker,
@@ -751,7 +758,10 @@ h2 {
   }
 
   .dashboard-header-meta {
+    position: relative;
+    z-index: 1;
     display: grid;
+    margin-inline-start: auto;
     justify-items: end;
     gap: 0.5rem;
     flex: 0 0 auto;
@@ -1105,6 +1115,7 @@ h2 {
 
   .dashboard-sidebar {
     padding-inline: 0.75rem;
+    padding-top: 3rem;
   }
 
   .dashboard-header {
