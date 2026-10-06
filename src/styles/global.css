@@ -1170,3 +1170,28 @@ h2 {
     font-size: 0.7rem;
   }
 }
+
+
+@media (min-width: 56.25rem) and (orientation: landscape) {
+  .dashboard-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+  }
+
+  .dashboard-project-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    flex: 0 0 auto;
+    border-radius: 0.8rem;
+    object-fit: cover;
+    box-shadow:
+      0 0 0 1px rgb(23 32 42 / 8%),
+      0 0.35rem 0.9rem rgb(23 32 42 / 10%);
+  }
+
+  .dashboard-card-heading h3 {
+    min-width: 0;
+  }
+}
