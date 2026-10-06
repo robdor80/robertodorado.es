@@ -8,10 +8,13 @@ interface Props {
 
 const { project } = Astro.props;
 const { title, summary, type, status, technologies } = project.data;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <article class="project-card">
-  <h3><a href={`/proyectos/${project.id}/`}>{title}</a></h3>
+  <h3><a href={`${base}proyectos/${project.id}/`}>{title}</a></h3>
   <p>{summary}</p>
 
   <dl class="project-meta">

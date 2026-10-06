@@ -31,11 +31,14 @@ const {
   playStoreUrl,
   downloadUrl,
 } = project.data;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 ---
 
 <BaseLayout title={`${title} | Roberto Dorado`} description={summary}>
   <article class="project-detail">
-    <a class="back-link" href="/proyectos/">← Todos los proyectos</a>
+    <a class="back-link" href={`${base}proyectos/`}>← Todos los proyectos</a>
 
     <header class="page-header">
       <h1>{title}</h1>
@@ -78,4 +81,3 @@ const {
     )}
   </article>
 </BaseLayout>
-

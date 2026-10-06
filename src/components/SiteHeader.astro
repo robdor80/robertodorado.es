@@ -1,12 +1,16 @@
 ---
 const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const projectsPath = `${base}proyectos/`;
 
 const links = [
-  { href: '/', label: 'Inicio', isCurrent: currentPath === '/' },
+  { href: base, label: 'Inicio', isCurrent: currentPath === base },
   {
-    href: '/proyectos/',
+    href: projectsPath,
     label: 'Proyectos',
-    isCurrent: currentPath.startsWith('/proyectos'),
+    isCurrent: currentPath.startsWith(projectsPath),
   },
 ];
 ---
