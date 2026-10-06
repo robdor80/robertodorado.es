@@ -7,9 +7,10 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  homeShell?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex = false, homeShell = false } = Astro.props;
 const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
@@ -46,7 +47,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     )}
     <title>{title}</title>
   </head>
-  <body>
+  <body class={homeShell ? 'home-shell' : undefined}>
     <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <SiteHeader />
     <main id="main-content" class="container" tabindex="-1">

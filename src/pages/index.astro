@@ -2,61 +2,345 @@
 import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { projectSections } from '../lib/projectLabels';
+import { projectStatusLabels, projectTypeLabels } from '../lib/projectLabels';
 
-const featuredProjects = await getCollection('projects', ({ data }) => data.featured);
+const projects = (await getCollection('projects')).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return a.data.title.localeCompare(b.data.title, 'es');
+});
+
+const featuredProjects = projects.filter(({ data }) => data.featured);
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 const projectsPath = `${base}proyectos/`;
+const logoPath = `${base}favicon.webp`;
+
+const counts = {
+  all: projects.length,
+  android: projects.filter(({ data }) => data.type === 'android').length,
+  web: projects.filter(({ data }) => data.type === 'web').length,
+  windows: projects.filter(({ data }) => data.type === 'windows').length,
+};
+
+const filterCopy = {
+  all: {
+    title: 'Roberto Dorado — Portfolio',
+    kicker: 'Portfolio personal',
+    description: 'Aplicaciones, webs y programas reunidos en un único espacio.',
+    gridTitle: 'Todos los proyectos',
+  },
+  android: {
+    title: 'Roberto Dorado — Apps',
+    kicker: 'Aplicaciones',
+    description: 'Aplicaciones Android desarrolladas dentro del ecosistema RobDev.',
+    gridTitle: 'Apps',
+  },
+  web: {
+    title: 'Roberto Dorado — Webs',
+    kicker: 'Proyectos web',
+    description: 'Webs, herramientas online y espacios personales publicados.',
+    gridTitle: 'Webs',
+  },
+  windows: {
+    title: 'Roberto Dorado — Programas',
+    kicker: 'Programas Windows',
+    description: 'Aplicaciones y utilidades de escritorio para Windows.',
+    gridTitle: 'Programas',
+  },
+};
 ---
 
 <BaseLayout
   title="Roberto Dorado | Portfolio"
   description="Portfolio personal de Roberto Dorado con aplicaciones, programas Windows y proyectos web."
+  homeShell
 >
-  <section class="home-hero" aria-labelledby="page-title">
-    <div class="hero-copy">
-      <p class="eyebrow">Portfolio personal</p>
-      <h1 id="page-title">Roberto Dorado</h1>
-      <p class="hero-summary">Aplicaciones, programas y proyectos web.</p>
-      <p class="hero-description">
-        Un espacio para reunir proyectos públicos y acceder a su información.
-      </p>
-      <a class="button button-primary" href={projectsPath}>Ver proyectos</a>
-    </div>
+  <section class="dashboard-shell" data-dashboard aria-label="Portfolio de Roberto Dorado">
+    <aside class="dashboard-sidebar">
+      <a class="dashboard-brand" href={base} data-dashboard-reset aria-label="Roberto Dorado Portfolio">
+        <img src={logoPath} alt="" width="48" height="48" />
+        <span class="dashboard-brand-copy">
+          <strong>Roberto Dorado</strong>
+          <span>Portfolio</span>
+        </span>
+      </a>
 
-    <section class="portfolio-areas" aria-labelledby="areas-title">
-      <h2 id="areas-title">Contenido del portfolio</h2>
-      <ul>
-        {projectSections.map(({ title }) => <li>{title}</li>)}
-      </ul>
-    </section>
-  </section>
+      <nav class="dashboard-nav" aria-label="Filtrar proyectos">
+        <p class="dashboard-nav-label">Proyectos</p>
 
-  {featuredProjects.length > 0 && (
-    <section class="home-section featured-projects" aria-labelledby="featured-title">
-      <header class="section-heading">
-        <p class="eyebrow">Selección</p>
-        <h2 id="featured-title">Proyectos destacados</h2>
+        <button class="dashboard-nav-item is-active" type="button" data-filter="all" aria-pressed="true">
+          <span class="dashboard-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+          </span>
+          <span>Todos</span>
+          <span class="dashboard-nav-count">{counts.all}</span>
+        </button>
+
+        <button class="dashboard-nav-item" type="button" data-filter="android" aria-pressed="false">
+          <span class="dashboard-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8.4 5.2 6.8 2.7a.75.75 0 0 1 1.27-.8L9.8 4.6a8.5 8.5 0 0 1 4.4 0l1.73-2.7a.75.75 0 0 1 1.27.8l-1.6 2.5A7.1 7.1 0 0 1 19 11H5a7.1 7.1 0 0 1 3.4-5.8ZM7 12.5h10V20a2 2 0 0 1-2 2h-1v-3h-4v3H9a2 2 0 0 1-2-2v-7.5ZM4 13a1 1 0 0 1 2 0v5a1 1 0 1 1-2 0v-5Zm14 0a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0v-5Z"/></svg>
+          </span>
+          <span>Apps</span>
+          <span class="dashboard-nav-count">{counts.android}</span>
+        </button>
+
+        <button class="dashboard-nav-item" type="button" data-filter="web" aria-pressed="false">
+          <span class="dashboard-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.92 6h-3.05a15.7 15.7 0 0 0-1.38-3.23A8.05 8.05 0 0 1 18.92 8ZM12 4c.83 1.04 1.55 2.4 1.93 4h-3.86C10.45 6.4 11.17 5.04 12 4ZM4.26 14a8.2 8.2 0 0 1 0-4h3.42a16.7 16.7 0 0 0 0 4H4.26Zm.82 2h3.05c.3 1.16.77 2.25 1.38 3.23A8.05 8.05 0 0 1 5.08 16Zm3.05-8H5.08a8.05 8.05 0 0 1 4.43-3.23A15.7 15.7 0 0 0 8.13 8ZM12 20c-.83-1.04-1.55-2.4-1.93-4h3.86c-.38 1.6-1.1 2.96-1.93 4Zm2.28-6H9.72a14.75 14.75 0 0 1 0-4h4.56a14.75 14.75 0 0 1 0 4Zm.21 5.23c.61-.98 1.08-2.07 1.38-3.23h3.05a8.05 8.05 0 0 1-4.43 3.23ZM16.32 14a16.7 16.7 0 0 0 0-4h3.42a8.2 8.2 0 0 1 0 4h-3.42Z"/></svg>
+          </span>
+          <span>Webs</span>
+          <span class="dashboard-nav-count">{counts.web}</span>
+        </button>
+
+        <button class="dashboard-nav-item" type="button" data-filter="windows" aria-pressed="false">
+          <span class="dashboard-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 4.5 11 3.4v7.7H3V4.5Zm9.5-1.3L21 2v9.1h-8.5V3.2ZM3 12.6h8v7.9l-8-1.1v-6.8Zm9.5 0H21V22l-8.5-1.2v-8.2Z"/></svg>
+          </span>
+          <span>Programas</span>
+          <span class="dashboard-nav-count">{counts.windows}</span>
+        </button>
+      </nav>
+
+      <div class="dashboard-sidebar-bottom">
+        <button class="dashboard-nav-item dashboard-settings-button" type="button" data-settings aria-pressed="false">
+          <span class="dashboard-nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9.4 3 .45-1h4.3l.45 1a7.7 7.7 0 0 1 1.52.88l1.08-.12 2.15 3.72-.64.88c.08.5.12 1.02.12 1.54s-.04 1.04-.12 1.54l.64.88-2.15 3.72-1.08-.12a7.7 7.7 0 0 1-1.52.88l-.45 1h-4.3l-.45-1a7.7 7.7 0 0 1-1.52-.88l-1.08.12-2.15-3.72.64-.88a9.6 9.6 0 0 1 0-3.08l-.64-.88 2.15-3.72 1.08.12A7.7 7.7 0 0 1 9.4 3ZM12 7.25A3.75 3.75 0 1 0 12 14.75 3.75 3.75 0 0 0 12 7.25Z"/></svg>
+          </span>
+          <span>Ajustes</span>
+        </button>
+        <p class="dashboard-version">robertodorado.es</p>
+      </div>
+    </aside>
+
+    <div class="dashboard-workspace">
+      <header class="dashboard-header">
+        <div>
+          <p class="dashboard-kicker" data-view-kicker>{filterCopy.all.kicker}</p>
+          <h1 data-view-title>{filterCopy.all.title}</h1>
+          <p class="dashboard-header-copy" data-view-description>{filterCopy.all.description}</p>
+        </div>
+
+        <div class="dashboard-header-meta" aria-label="Resumen">
+          <span class="dashboard-header-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            Portfolio activo
+          </span>
+          <span>{counts.all} proyectos</span>
+        </div>
       </header>
 
-      <ul class="project-grid home-project-grid">
-        {featuredProjects.map((project) => (
-          <li>
-            <ProjectCard project={project} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
+      <div class="dashboard-content">
+        <div class="dashboard-projects-view" data-projects-view>
+          <div class="dashboard-toolbar">
+            <div>
+              <p class="dashboard-section-label">Biblioteca</p>
+              <h2 data-grid-title>{filterCopy.all.gridTitle}</h2>
+            </div>
+            <span class="dashboard-results" data-results-count>{counts.all} proyectos</span>
+          </div>
 
-  <section class="catalog-cta" aria-labelledby="catalog-title">
-    <div>
-      <p class="eyebrow">Catálogo</p>
-      <h2 id="catalog-title">Todos los proyectos</h2>
-      <p>Consulta el catálogo completo organizado por tipo de proyecto.</p>
+          <div class="dashboard-grid" data-project-grid>
+            {projects.map((project) => {
+              const { title, summary, type, status, technologies } = project.data;
+              return (
+                <a
+                  class="dashboard-card"
+                  data-project-card
+                  data-type={type}
+                  href={`${base}proyectos/${project.id}/`}
+                  aria-label={`Abrir ${title}`}
+                >
+                  <div class="dashboard-card-top">
+                    <span class:list={['dashboard-type-badge', `type-${type}`]}>
+                      {projectTypeLabels[type]}
+                    </span>
+                    <span class:list={['dashboard-status', `status-${status}`]}>
+                      <span aria-hidden="true"></span>
+                      {projectStatusLabels[status]}
+                    </span>
+                  </div>
+
+                  <div class="dashboard-card-body">
+                    <h3>{title}</h3>
+                    <p>{summary}</p>
+                  </div>
+
+                  <div class="dashboard-card-footer">
+                    <div class="dashboard-tech-list" aria-label={`Tecnologías de ${title}`}>
+                      {technologies.length > 0
+                        ? technologies.slice(0, 3).map((technology) => <span>{technology}</span>)
+                        : <span>Proyecto web</span>}
+                    </div>
+                    <span class="dashboard-card-arrow" aria-hidden="true">→</span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+
+          <div class="dashboard-empty" data-empty-state hidden>
+            <span class="dashboard-empty-icon" aria-hidden="true">＋</span>
+            <h3>Aún no hay proyectos en esta categoría</h3>
+            <p>Cuando añadas uno al portfolio aparecerá automáticamente aquí.</p>
+          </div>
+        </div>
+
+        <section class="dashboard-settings-panel" data-settings-panel hidden aria-labelledby="settings-title">
+          <div class="dashboard-toolbar">
+            <div>
+              <p class="dashboard-section-label">Configuración</p>
+              <h2 id="settings-title">Ajustes</h2>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <article class="settings-card">
+              <span class="settings-card-icon" aria-hidden="true">▦</span>
+              <div>
+                <h3>Vista del portfolio</h3>
+                <p>El dashboard se activa en PC y tablet horizontal. En móvil se mantiene una vista compacta adaptada.</p>
+              </div>
+            </article>
+            <article class="settings-card">
+              <span class="settings-card-icon" aria-hidden="true">⬇</span>
+              <div>
+                <h3>Aplicación web</h3>
+                <p>La web está preparada como PWA para instalarse desde Chrome o Edge cuando el navegador lo permita.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
     </div>
-    <a class="button button-secondary" href={projectsPath}>Ver todos los proyectos</a>
   </section>
+
+  <div class="mobile-home">
+    <section class="home-hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Portfolio personal</p>
+        <h1 id="page-title">Roberto Dorado</h1>
+        <p class="hero-summary">Aplicaciones, programas y proyectos web.</p>
+        <p class="hero-description">
+          Un espacio para reunir proyectos públicos y acceder a su información.
+        </p>
+        <a class="button button-primary" href={projectsPath}>Ver proyectos</a>
+      </div>
+
+      <section class="portfolio-areas" aria-labelledby="areas-title">
+        <h2 id="areas-title">Contenido del portfolio</h2>
+        <ul>
+          <li>Apps</li>
+          <li>Programas Windows</li>
+          <li>Webs</li>
+        </ul>
+      </section>
+    </section>
+
+    {featuredProjects.length > 0 && (
+      <section class="home-section featured-projects" aria-labelledby="featured-title">
+        <header class="section-heading">
+          <p class="eyebrow">Selección</p>
+          <h2 id="featured-title">Proyectos destacados</h2>
+        </header>
+
+        <ul class="project-grid home-project-grid">
+          {featuredProjects.map((project) => (
+            <li>
+              <ProjectCard project={project} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="catalog-cta" aria-labelledby="catalog-title">
+      <div>
+        <p class="eyebrow">Catálogo</p>
+        <h2 id="catalog-title">Todos los proyectos</h2>
+        <p>Consulta el catálogo completo organizado por tipo de proyecto.</p>
+      </div>
+      <a class="button button-secondary" href={projectsPath}>Ver todos los proyectos</a>
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ filterCopy }}>
+    const dashboard = document.querySelector('[data-dashboard]');
+
+    if (dashboard) {
+      const filterButtons = [...dashboard.querySelectorAll('[data-filter]')];
+      const settingsButton = dashboard.querySelector('[data-settings]');
+      const resetButton = dashboard.querySelector('[data-dashboard-reset]');
+      const cards = [...dashboard.querySelectorAll('[data-project-card]')];
+      const projectsView = dashboard.querySelector('[data-projects-view]');
+      const settingsPanel = dashboard.querySelector('[data-settings-panel]');
+      const emptyState = dashboard.querySelector('[data-empty-state]');
+      const title = dashboard.querySelector('[data-view-title]');
+      const kicker = dashboard.querySelector('[data-view-kicker]');
+      const description = dashboard.querySelector('[data-view-description]');
+      const gridTitle = dashboard.querySelector('[data-grid-title]');
+      const resultCount = dashboard.querySelector('[data-results-count]');
+
+      const setActiveButton = (activeButton) => {
+        filterButtons.forEach((button) => {
+          const isActive = button === activeButton;
+          button.classList.toggle('is-active', isActive);
+          button.setAttribute('aria-pressed', String(isActive));
+        });
+
+        if (settingsButton) {
+          settingsButton.classList.remove('is-active');
+          settingsButton.setAttribute('aria-pressed', 'false');
+        }
+      };
+
+      const applyFilter = (filter, activeButton) => {
+        const copy = filterCopy[filter] || filterCopy.all;
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const show = filter === 'all' || card.dataset.type === filter;
+          card.hidden = !show;
+          if (show) visible += 1;
+        });
+
+        setActiveButton(activeButton);
+        if (projectsView) projectsView.hidden = false;
+        if (settingsPanel) settingsPanel.hidden = true;
+        if (emptyState) emptyState.hidden = visible !== 0;
+
+        if (title) title.textContent = copy.title;
+        if (kicker) kicker.textContent = copy.kicker;
+        if (description) description.textContent = copy.description;
+        if (gridTitle) gridTitle.textContent = copy.gridTitle;
+        if (resultCount) resultCount.textContent = `${visible} ${visible === 1 ? 'proyecto' : 'proyectos'}`;
+      };
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => applyFilter(button.dataset.filter || 'all', button));
+      });
+
+      settingsButton?.addEventListener('click', () => {
+        filterButtons.forEach((button) => {
+          button.classList.remove('is-active');
+          button.setAttribute('aria-pressed', 'false');
+        });
+
+        settingsButton.classList.add('is-active');
+        settingsButton.setAttribute('aria-pressed', 'true');
+
+        if (projectsView) projectsView.hidden = true;
+        if (settingsPanel) settingsPanel.hidden = false;
+        if (title) title.textContent = 'Roberto Dorado — Ajustes';
+        if (kicker) kicker.textContent = 'Configuración';
+        if (description) description.textContent = 'Preferencias e información de la aplicación web.';
+      });
+
+      resetButton?.addEventListener('click', (event) => {
+        event.preventDefault();
+        const allButton = filterButtons.find((button) => button.dataset.filter === 'all');
+        if (allButton) applyFilter('all', allButton);
+      });
+    }
+  </script>
 </BaseLayout>
