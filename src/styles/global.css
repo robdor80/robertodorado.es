@@ -522,10 +522,30 @@ h2 {
     flex-direction: column;
     padding: 1.5rem 1rem 1rem;
     color: #f8fafc;
-    background:
-      radial-gradient(circle at 30% 0%, rgb(197 160 89 / 14%), transparent 28rem),
-      linear-gradient(180deg, #111820 0%, #17202a 100%);
-    border-inline-end: 1px solid rgb(255 255 255 / 7%);
+    background-image:
+      radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
+      linear-gradient(
+        180deg,
+        #10171f 0%,
+        #121a23 12.375rem,
+        #17202a 100vh
+      );
+    background-size: 100vw 100vh;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-inline-end: 0;
+  }
+
+  .dashboard-sidebar::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 12.375rem;
+    inset-inline-end: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgb(255 255 255 / 7%);
+    pointer-events: none;
   }
 
   .dashboard-brand {
@@ -685,9 +705,21 @@ h2 {
     gap: 2rem;
     min-height: 12.375rem;
     padding: 1.65rem clamp(1.7rem, 3vw, 3.2rem);
-    border-block-end: 1px solid #dfe4ea;
-    background: rgb(255 255 255 / 95%);
-    box-shadow: 0 0.2rem 1.2rem rgb(22 32 42 / 4%);
+    color: #f8fafc;
+    border-block-end: 0;
+    background-image:
+      radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
+      linear-gradient(
+        180deg,
+        #10171f 0%,
+        #121a23 12.375rem,
+        #17202a 100vh
+      );
+    background-size: 100vw 100vh;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    box-shadow: none;
   }
 
   .dashboard-header > div:first-child {
@@ -697,7 +729,7 @@ h2 {
   .dashboard-kicker,
   .dashboard-section-label {
     margin: 0 0 0.35rem;
-    color: #9a772f;
+    color: #c9a85f;
     font-size: 0.7rem;
     font-weight: 800;
     letter-spacing: 0.13em;
@@ -714,7 +746,7 @@ h2 {
   .dashboard-header-copy {
     max-width: 46rem;
     margin: 0.55rem 0 0;
-    color: #637080;
+    color: #aab5c2;
     font-size: 0.94rem;
   }
 
@@ -723,7 +755,7 @@ h2 {
     justify-items: end;
     gap: 0.5rem;
     flex: 0 0 auto;
-    color: #738090;
+    color: #9da9b5;
     font-size: 0.8rem;
   }
 
@@ -732,10 +764,10 @@ h2 {
     align-items: center;
     gap: 0.48rem;
     padding: 0.4rem 0.68rem;
-    border: 1px solid #e1e6eb;
+    border: 1px solid rgb(255 255 255 / 12%);
     border-radius: 999rem;
-    color: #394655;
-    background: #ffffff;
+    color: #e8edf2;
+    background: rgb(255 255 255 / 7%);
     font-weight: 700;
   }
 
@@ -1078,6 +1110,29 @@ h2 {
   .dashboard-header {
     min-height: 11.25rem;
     padding-inline: 1.5rem;
+    background-image:
+      radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
+      linear-gradient(
+        180deg,
+        #10171f 0%,
+        #121a23 11.25rem,
+        #17202a 100vh
+      );
+  }
+
+  .dashboard-sidebar {
+    background-image:
+      radial-gradient(circle at 5rem 0, rgb(197 160 89 / 14%), transparent 28rem),
+      linear-gradient(
+        180deg,
+        #10171f 0%,
+        #121a23 11.25rem,
+        #17202a 100vh
+      );
+  }
+
+  .dashboard-sidebar::after {
+    inset-block-start: 11.25rem;
   }
 
   .dashboard-header-meta {
