@@ -828,6 +828,11 @@ h2 {
     box-shadow:
       0 0.55rem 1.35rem rgb(23 32 42 / 10%),
       0 0.08rem 0.22rem rgb(23 32 42 / 6%);
+    width: 100%;
+    appearance: none;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
     text-decoration: none;
     overflow: hidden;
     transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
@@ -1072,5 +1077,194 @@ h2 {
 
   .dashboard-card-heading h3 {
     min-width: 0;
+  }
+}
+
+
+@media (min-width: 56.25rem) and (orientation: landscape) {
+  .dashboard-brand {
+    width: fit-content;
+    padding-right: 0;
+  }
+
+  .project-modal {
+    width: min(78vw, 72rem);
+    max-width: calc(100vw - 4rem);
+    max-height: 78vh;
+    padding: 0;
+    border: 0;
+    border-radius: 1.35rem;
+    color: #17202a;
+    background: transparent;
+    box-shadow:
+      0 2rem 5rem rgb(9 15 22 / 28%),
+      0 0 0 1px rgb(214 173 92 / 18%);
+    overflow: visible;
+  }
+
+  .project-modal::backdrop {
+    background: rgb(8 14 20 / 58%);
+    backdrop-filter: blur(0.18rem);
+  }
+
+  .project-modal-shell {
+    position: relative;
+    max-height: 78vh;
+    overflow: auto;
+    padding: clamp(2rem, 3.2vw, 3.2rem);
+    border: 1px solid rgb(214 173 92 / 28%);
+    border-radius: 1.35rem;
+    background:
+      radial-gradient(circle at 0 0, rgb(214 173 92 / 10%), transparent 23rem),
+      #ffffff;
+  }
+
+  .project-modal-close {
+    position: absolute;
+    z-index: 2;
+    inset-block-start: 1.05rem;
+    inset-inline-end: 1.15rem;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #687585;
+    background: #eef2f5;
+    font: inherit;
+    font-size: 1.7rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 150ms ease, background 150ms ease, transform 150ms ease;
+  }
+
+  .project-modal-close:hover {
+    color: #7b5b19;
+    background: #f5ecd8;
+    transform: rotate(5deg);
+  }
+
+  .project-modal-layout {
+    display: grid;
+    grid-template-columns: minmax(11rem, 15rem) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .project-modal-visual {
+    position: sticky;
+    top: 0;
+    display: grid;
+    justify-items: center;
+    padding-top: 0.45rem;
+  }
+
+  .project-modal-icon {
+    display: block;
+    width: min(100%, 14rem);
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 1.65rem;
+    object-fit: cover;
+    box-shadow:
+      0 0 0 1px rgb(23 32 42 / 8%),
+      0 1.15rem 2.3rem rgb(23 32 42 / 15%);
+  }
+
+  .project-modal-icon-fallback {
+    display: grid;
+    place-items: center;
+    color: #d6ad5c;
+    background: #17202a;
+    font-size: 5rem;
+    font-weight: 800;
+  }
+
+  .project-modal-copy {
+    min-width: 0;
+    padding-right: 1rem;
+  }
+
+  .project-modal-copy h2 {
+    margin: 0;
+    padding-right: 2.8rem;
+    font-size: clamp(2rem, 3vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .project-modal-summary {
+    max-width: 48rem;
+    margin: 0.9rem 0 1.65rem;
+    color: #667382;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .project-modal-content {
+    max-width: 50rem;
+    color: #394655;
+  }
+
+  .project-modal-content h2 {
+    margin: 1.45rem 0 0.4rem;
+    padding: 0;
+    color: #263240;
+    font-size: 1.08rem;
+    letter-spacing: 0;
+  }
+
+  .project-modal-content p {
+    margin: 0 0 0.85rem;
+    color: #5f6d7b;
+    line-height: 1.65;
+  }
+
+  .project-modal-content code {
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.3rem;
+    background: #eef2f5;
+  }
+
+  .project-modal-link {
+    display: inline-block;
+    margin-top: 1.35rem;
+    color: #b8892f;
+    font-size: 1.02rem;
+    font-weight: 800;
+    text-decoration: underline;
+    text-decoration-color: rgb(184 137 47 / 40%);
+    text-decoration-thickness: 0.08rem;
+    text-underline-offset: 0.3rem;
+    transition: color 150ms ease, text-decoration-color 150ms ease;
+  }
+
+  .project-modal-link:hover {
+    color: #8f681e;
+    text-decoration-color: currentColor;
+  }
+}
+
+@media (min-width: 56.25rem) and (max-width: 68.75rem) and (orientation: landscape) {
+  .project-modal {
+    width: min(86vw, 64rem);
+    max-height: 82vh;
+  }
+
+  .project-modal-shell {
+    max-height: 82vh;
+    padding: 2rem;
+  }
+
+  .project-modal-layout {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .project-modal-icon {
+    width: 10.5rem;
+    border-radius: 1.35rem;
   }
 }
