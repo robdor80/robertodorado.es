@@ -23,7 +23,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content="Roberto Dorado" />
+    <meta name="theme-color" content="#17202a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Roberto Dorado" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href={`${base}manifest.webmanifest`} />
     <link rel="icon" type="image/webp" href={`${base}favicon.webp`} />
+    <link rel="apple-touch-icon" href={`${base}icons/roberto-dorado.webp`} />
     {noindex ? (
       <meta name="robots" content="noindex, nofollow" />
     ) : (
@@ -45,5 +53,15 @@ const base = import.meta.env.BASE_URL.endsWith('/')
       <slot />
     </main>
     <SiteFooter />
+
+    <script is:inline define:vars={{ base }}>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch((error) => {
+            console.error('No se pudo registrar el service worker:', error);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

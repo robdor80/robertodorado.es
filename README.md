@@ -1,6 +1,6 @@
 # robertodorado.es
 
-Portfolio personal de Roberto Dorado. La web servirá como presentación y punto de acceso a aplicaciones, programas, webs y otros proyectos.
+Portfolio personal de Roberto Dorado. La web sirve como presentación y punto de acceso a aplicaciones, programas, webs y otros proyectos.
 
 El proyecto utiliza [Astro](https://astro.build/) en modo estático, TypeScript estricto y CSS propio, sin frameworks de interfaz adicionales.
 
@@ -53,16 +53,33 @@ src/
 ├── content/projects/ Entradas Markdown de proyectos públicos
 ├── layouts/          Estructuras compartidas entre páginas
 ├── lib/              Utilidades y etiquetas compartidas
-├── pages/            Rutas de la web
+├── pages/            Rutas de la web y manifiesto PWA
 ├── styles/           Estilos globales
 └── content.config.ts Esquema y configuración de las colecciones
+
+public/
+├── icons/             Icono de la aplicación web
+├── favicon.webp       Favicon
+└── sw.js              Service worker de la PWA
 ```
 
 Astro genera el sitio de producción en `dist/`. Esta carpeta no se versiona.
 
-## Dominio
+## Despliegue
 
-El dominio canónico configurado para el build es `https://robertodorado.es`. El proyecto todavía no incluye configuración de hosting ni despliegue.
+La rama `main` se publica automáticamente en GitHub Pages mediante GitHub Actions. El workflow ejecuta las comprobaciones de Astro, genera `dist/` y despliega el artefacto resultante.
+
+La dirección de GitHub Pages es:
+
+`https://robdor80.github.io/robertodorado.es/`
+
+El dominio canónico de producción sigue siendo `https://robertodorado.es` para builds fuera del entorno específico de GitHub Pages.
+
+## PWA
+
+La web incluye un manifiesto web generado por Astro y un service worker, por lo que puede instalarse como aplicación web desde navegadores compatibles.
+
+La PWA utiliza el icono RD dorado de la identidad visual de Roberto Dorado. El `start_url`, el `scope` y las rutas de recursos se adaptan automáticamente al subdirectorio de GitHub Pages.
 
 ## Proyectos públicos
 
