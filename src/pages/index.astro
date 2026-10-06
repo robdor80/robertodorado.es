@@ -121,7 +121,7 @@ const filterCopy = {
       <header class="dashboard-header">
         <div>
           <p class="dashboard-kicker" data-view-kicker>{filterCopy.all.kicker}</p>
-          <h1 data-view-title>{filterCopy.all.title}</h1>
+          <h1>{filterCopy.all.title}</h1>
           <p class="dashboard-header-copy" data-view-description>{filterCopy.all.description}</p>
         </div>
 
@@ -294,7 +294,6 @@ const filterCopy = {
       const projectsView = dashboard.querySelector('[data-projects-view]');
       const settingsPanel = dashboard.querySelector('[data-settings-panel]');
       const emptyState = dashboard.querySelector('[data-empty-state]');
-      const title = dashboard.querySelector('[data-view-title]');
       const kicker = dashboard.querySelector('[data-view-kicker]');
       const description = dashboard.querySelector('[data-view-description]');
       const gridTitle = dashboard.querySelector('[data-grid-title]');
@@ -328,7 +327,6 @@ const filterCopy = {
         if (settingsPanel) settingsPanel.hidden = true;
         if (emptyState) emptyState.hidden = visible !== 0;
 
-        if (title) title.textContent = copy.title;
         if (kicker) kicker.textContent = copy.kicker;
         if (description) description.textContent = copy.description;
         if (gridTitle) gridTitle.textContent = copy.gridTitle;
