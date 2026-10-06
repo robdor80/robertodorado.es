@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import ProjectCard from '../components/ProjectCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { projectTypeLabels } from '../lib/projectLabels';
 
 const projects = (await getCollection('projects')).sort((a, b) => {
   if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
@@ -30,25 +29,21 @@ const counts = {
 const filterCopy = {
   all: {
     title: 'Roberto Dorado · Portfolio',
-    kicker: 'Portfolio personal',
     description: 'Aplicaciones, webs y programas reunidos en un único espacio.',
     gridTitle: 'Todos los proyectos',
   },
   android: {
     title: 'Roberto Dorado · Portfolio',
-    kicker: 'Aplicaciones',
     description: 'Aplicaciones Android desarrolladas dentro del ecosistema RobDev.',
     gridTitle: 'Apps',
   },
   web: {
     title: 'Roberto Dorado · Portfolio',
-    kicker: 'Proyectos web',
     description: 'Webs, herramientas online y espacios personales publicados.',
     gridTitle: 'Webs',
   },
   windows: {
     title: 'Roberto Dorado · Portfolio',
-    kicker: 'Programas Windows',
     description: 'Aplicaciones y utilidades de escritorio para Windows.',
     gridTitle: 'Programas',
   },
@@ -66,7 +61,6 @@ const filterCopy = {
         <img src={logoPath} alt="" width="48" height="48" />
         <span class="dashboard-brand-copy">
           <strong>Roberto Dorado</strong>
-          <span>Portfolio</span>
         </span>
       </a>
 
@@ -120,18 +114,10 @@ const filterCopy = {
     <div class="dashboard-workspace">
       <header class="dashboard-header">
         <div>
-          <p class="dashboard-kicker" data-view-kicker>{filterCopy.all.kicker}</p>
           <h1>{filterCopy.all.title}</h1>
           <p class="dashboard-header-copy" data-view-description>{filterCopy.all.description}</p>
         </div>
 
-        <div class="dashboard-header-meta" aria-label="Resumen">
-          <span class="dashboard-header-pill">
-            <span class="status-dot" aria-hidden="true"></span>
-            Portfolio activo
-          </span>
-          <span>{counts.all} proyectos</span>
-        </div>
       </header>
 
       <div class="dashboard-content">
@@ -141,12 +127,11 @@ const filterCopy = {
               <p class="dashboard-section-label">Biblioteca</p>
               <h2 data-grid-title>{filterCopy.all.gridTitle}</h2>
             </div>
-            <span class="dashboard-results" data-results-count>{counts.all} proyectos</span>
           </div>
 
           <div class="dashboard-grid" data-project-grid>
             {projects.map((project) => {
-              const { title, summary, type, technologies } = project.data;
+              const { title, summary, type } = project.data;
               const iconUrl = projectIcons[project.id];
               return (
                 <a
@@ -156,12 +141,6 @@ const filterCopy = {
                   href={`${base}proyectos/${project.id}/`}
                   aria-label={`Abrir ${title}`}
                 >
-                  <div class="dashboard-card-top">
-                    <span class:list={['dashboard-type-badge', `type-${type}`]}>
-                      {projectTypeLabels[type]}
-                    </span>
-                  </div>
-
                   <div class="dashboard-card-body">
                     <div class="dashboard-card-heading">
                       {iconUrl && (
@@ -181,11 +160,6 @@ const filterCopy = {
                   </div>
 
                   <div class="dashboard-card-footer">
-                    <div class="dashboard-tech-list" aria-label={`Tecnologías de ${title}`}>
-                      {technologies.length > 0
-                        ? technologies.slice(0, 3).map((technology) => <span>{technology}</span>)
-                        : <span>Proyecto web</span>}
-                    </div>
                     <span class="dashboard-card-arrow" aria-hidden="true">→</span>
                   </div>
                 </a>
@@ -294,10 +268,8 @@ const filterCopy = {
       const projectsView = dashboard.querySelector('[data-projects-view]');
       const settingsPanel = dashboard.querySelector('[data-settings-panel]');
       const emptyState = dashboard.querySelector('[data-empty-state]');
-      const kicker = dashboard.querySelector('[data-view-kicker]');
       const description = dashboard.querySelector('[data-view-description]');
       const gridTitle = dashboard.querySelector('[data-grid-title]');
-      const resultCount = dashboard.querySelector('[data-results-count]');
 
       const setActiveButton = (activeButton) => {
         filterButtons.forEach((button) => {
@@ -327,10 +299,8 @@ const filterCopy = {
         if (settingsPanel) settingsPanel.hidden = true;
         if (emptyState) emptyState.hidden = visible !== 0;
 
-        if (kicker) kicker.textContent = copy.kicker;
         if (description) description.textContent = copy.description;
         if (gridTitle) gridTitle.textContent = copy.gridTitle;
-        if (resultCount) resultCount.textContent = `${visible} ${visible === 1 ? 'proyecto' : 'proyectos'}`;
       };
 
       filterButtons.forEach((button) => {
@@ -348,8 +318,6 @@ const filterCopy = {
 
         if (projectsView) projectsView.hidden = true;
         if (settingsPanel) settingsPanel.hidden = false;
-        if (title) title.textContent = 'Roberto Dorado · Portfolio';
-        if (kicker) kicker.textContent = 'Configuración';
         if (description) description.textContent = 'Preferencias e información de la aplicación web.';
       });
 
