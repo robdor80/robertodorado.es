@@ -509,7 +509,7 @@ h2 {
 
   .dashboard-shell {
     display: grid;
-    grid-template-columns: 16.275rem minmax(0, 1fr);
+    grid-template-columns: 24.4125rem minmax(0, 1fr);
     min-height: 100dvh;
     background: #f4f6f8;
   }
@@ -1100,7 +1100,7 @@ h2 {
 
 @media (min-width: 56.25rem) and (max-width: 68.75rem) and (orientation: landscape) {
   .dashboard-shell {
-    grid-template-columns: 14.175rem minmax(0, 1fr);
+    grid-template-columns: 21.2625rem minmax(0, 1fr);
   }
 
   .dashboard-sidebar {
