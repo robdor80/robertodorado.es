@@ -30,8 +30,19 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Install icon tooling
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Generate PWA icons
+        run: python scripts/generate-pwa-icons.py
 
       - name: Check Astro project
         run: npm run check

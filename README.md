@@ -8,6 +8,7 @@ El proyecto utiliza [Astro](https://astro.build/) en modo estático, TypeScript 
 
 - Node.js 22.12 o posterior.
 - npm 9.6.5 o posterior.
+- Python 3 con Pillow solo para regenerar los iconos PWA a partir del favicon maestro.
 
 ## Desarrollo local
 
@@ -58,16 +59,19 @@ src/
 └── content.config.ts Esquema y configuración de las colecciones
 
 public/
-├── icons/             Icono de la aplicación web
-├── favicon.webp       Favicon
+├── icons/             Iconos PWA generados durante el despliegue
+├── favicon.webp       Maestro RD dorado
 └── sw.js              Service worker de la PWA
+
+scripts/
+└── generate-pwa-icons.py
 ```
 
 Astro genera el sitio de producción en `dist/`. Esta carpeta no se versiona.
 
 ## Despliegue
 
-La rama `main` se publica automáticamente en GitHub Pages mediante GitHub Actions. El workflow ejecuta las comprobaciones de Astro, genera `dist/` y despliega el artefacto resultante.
+La rama `main` se publica automáticamente en GitHub Pages mediante GitHub Actions. El workflow genera los iconos PWA 192×192 y 512×512 desde el favicon maestro, ejecuta las comprobaciones de Astro, genera `dist/` y despliega el artefacto resultante.
 
 La dirección de GitHub Pages es:
 
@@ -77,9 +81,9 @@ El dominio canónico de producción sigue siendo `https://robertodorado.es` para
 
 ## PWA
 
-La web incluye un manifiesto web generado por Astro y un service worker, por lo que puede instalarse como aplicación web desde navegadores compatibles.
+La web incluye un manifiesto web generado por Astro, iconos PNG de 192×192 y 512×512 y un service worker, por lo que puede instalarse como aplicación web desde navegadores compatibles.
 
-La PWA utiliza el icono RD dorado de la identidad visual de Roberto Dorado. El `start_url`, el `scope` y las rutas de recursos se adaptan automáticamente al subdirectorio de GitHub Pages.
+Los iconos se generan a partir del favicon RD dorado maestro. El `start_url`, el `scope` y las rutas de recursos se adaptan automáticamente al subdirectorio de GitHub Pages.
 
 ## Proyectos públicos
 
